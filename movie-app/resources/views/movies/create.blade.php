@@ -25,35 +25,36 @@
         <div class="card-body">
             <form method="POST" action="/movies">
                 @csrf
-                <div>
-                    <label for="judul">Title:</label>
-                    <input type="text" id="judul" name="judul">
+                <div class="form-inline mb-3">
+                    <label for="judul">Title</label>
+                    <input class="form-control" type="text" id="judul" name="judul">
                 </div>
-                <div>
-                    <label for="poster">Poster:</label>
-                    <input type="text" id="poster" name="poster">
+                <div class="form-inline mb-3">
+                    <label for="poster">Poster</label>
+                    <input class="form-control" type="text" id="poster" name="poster">
                 </div>
-                <div>
-                    <label for="genre">Genre:</label>
-                    <select id="genre" name="genre_id">
+                <div class="form-inline mb-3">
+                    <label for="genre">Genre</label>
+                    <select class="form-control" id="genre" name="genre_id">
+                        <option selected>Choose Genre...</option>
                         @foreach ($genres as $genre)
-                        <option value="{{ $genre->id }}">{{ $genre->nama }}</option>
+                            <option value="{{ $genre->id }}">{{ $genre->nama }}</option>
                         @endforeach
                     </select>
                 </div>
-                <div>
-                    <label for="negara">Country:</label>
-                    <input type="text" id="negara" name="negara">
+                <div class="form-inline mb-3">
+                    <label for="negara">Country</label>
+                    <input class="form-control" type="text" id="negara" name="negara">
                 </div>
-                <div>
-                    <label for="tahun">Year:</label>
-                    <input type="text" id="tahun" name="tahun">
+                <div class="form-inline mb-3">
+                    <label for="tahun">Year</label>
+                    <input class="form-control" type="number" id="tahun" name="tahun" min="1900" max="2099" step="1">
                 </div>
-                <div>
-                    <label for="rating">Rating:</label>
-                    <input type="text" id="rating" name="rating">
+                <div class="form-inline mb-3">
+                    <label for="rating">Rating</label>
+                    <input class="form-control" type="number" id="rating" name="rating" min="0.1" max="10" step="0.1">
                 </div>
-                <button type="submit">Add</button>
+                <button type="submit" class="btn btn-primary btn-lg">Add Movie</button>
             </form>
         </div>
     </div>
