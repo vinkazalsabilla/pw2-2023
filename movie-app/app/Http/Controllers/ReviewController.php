@@ -44,17 +44,26 @@ class ReviewController extends Controller {
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Review $review)
-    {
-        //
+    public function edit(Review $review) {
+        $movies = Movie::all();
+        return view("reviews.edit", compact("review", "movies"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Review $review)
-    {
-        //
+    public function update(Request $request, Review $review) {
+        $validatedData = $request->validate([
+            "movie_id" => "required",
+            "user" => "required",
+            "rating" => "required|numeric",
+            "review" => "required",
+            "tanggal" => "required"
+        ]);
+    
+        $review->update($validatedData);
+    
+        return redirect("/reviews")->with("success", "Review updated successfully!");
     }
 
     public function destroy(Review $review) {

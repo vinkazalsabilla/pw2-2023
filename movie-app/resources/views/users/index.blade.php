@@ -55,7 +55,7 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->role }}</td>
                             <td>
-                                <a href="" class="btn btn-sm btn-warning"> Edit</a>
+                                <a href="/users/{{ $user->id }}/edit" class="btn btn-sm btn-warning"> Edit</a>
                                 <form action="/users/{{ $user->id }}" method="POST">
                                     @csrf
                                     @method('DELETE')

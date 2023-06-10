@@ -20,27 +20,32 @@
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
-            Users Data
+            Edit User
         </div>
         <div class="card-body">
-            <form method="POST" action="/users">
+            <form method="POST" action="/users/{{ $user->id }}">
                 @csrf
+                @method('PUT')
                 <div class="form-inline mb-3">
                     <label for="nama">Name</label>
-                    <input class="form-control" type="text" id="nama" name="nama">
+                    <input class="form-control" type="text" id="nama" name="nama" value="{{ $user->nama }}">
                 </div>
+
                 <div class="form-inline mb-3">
                     <label for="username">Username</label>
-                    <input class="form-control" type="text" id="username" name="username">
+                    <input class="form-control" type="text" id="username" name="username" value="{{ $user->username }}">
                 </div>
+
                 <div class="form-inline mb-3">
                     <label for="password">Password</label>
-                    <input class="form-control" type="password" id="password" name="password">
+                    <input class="form-control" type="password" id="password" name="password" value="{{ $user->password }}">
                 </div>
+
                 <div class="form-inline mb-3">
                     <label for="email">Email</label>
-                    <input class="form-control" type="email" id="email" name="email">
+                    <input class="form-control" type="email" id="email" name="email" value="{{ $user->email }}">
                 </div>
+
                 <div class="form-inline mb-3">
                     <label for="role">Role</label>
                     <select class="form-control" name="role" id="role">
@@ -51,7 +56,8 @@
                         <option value="Guest">Guest</option>
                     </select>
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg">Add User</button>
+
+                <button type="submit" class="btn btn-primary btn-lg">Update User</button>
             </form>
         </div>
     </div>
