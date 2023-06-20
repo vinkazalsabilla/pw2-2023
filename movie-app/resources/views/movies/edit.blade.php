@@ -23,7 +23,7 @@
             Edit Data
         </div>
         <div class="card-body">
-            <form method="POST" action="/movies/{{ $movie->id }}">
+            <form method="POST" action="/movies/{{ $movie->id }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="form-inline mb-3">
@@ -33,7 +33,8 @@
 
                 <div class="form-inline mb-3">
                     <label for="poster">Poster</label>
-                    <input class="form-control" type="text" id="poster" name="poster" value="{{ $movie->poster }}">
+                    <img style="width: 100px" src="/assets/img/{{ $movie->poster }}" alt="">
+                    <input class="form-control" type="file" id="poster" name="poster">
                 </div>
                 
                 <div class="form-inline mb-3">

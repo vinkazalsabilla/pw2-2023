@@ -5,7 +5,7 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,21 +18,20 @@ use App\Http\Controllers\UserController;
 |
 */
 
+// User route
 Route::get('/', [HomeController::class, "index"]);
 
-// Movies routes
-Route::resource("/movies", MovieController::class);
+// Admin route
+Route::group(["middleware" => "auth"], function() {
+    Route::resource("/movies", MovieController::class);
+    Route::resource("/genres", GenreController::class);
+    Route::resource("/reviews", ReviewController::class);
+});
 
-// Genres routes
-Route::resource("/genres", GenreController::class);
+// Auth route
+Route::get("/login", [AuthController::class, "showLoginForm"])->name("login");
+Route::post("/login", [AuthController::class, "login"]);
 
-// Reviews route
-Route::resource("/reviews", ReviewController::class);
+Route::get("/register", [AuthController::class, "showRegistrationForm"]);
+Route::post("/register", [AuthController::class, "register"]);
 
-// Users routes
-Route::get("/users", [UserController::class, "index"]);
-Route::get("/users/create", [UserController::class, "create"]);
-Route::post("/users", [UserController::class, "store"]);
-Route::delete("/users/{user}", [UserController::class, "destroy"]);
-Route::get("/users/{user}/edit", [UserController::class, "edit"]);
-Route::put("/users/{user}", [UserController::class, "update"]);
