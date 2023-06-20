@@ -20,41 +20,47 @@
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
-            Movies Data
+            Edit Data
         </div>
         <div class="card-body">
-            <form method="POST" action="/movies">
+            <form method="POST" action="/movies/{{ $movie->id }}">
                 @csrf
+                @method('PUT')
                 <div class="form-inline mb-3">
                     <label for="judul">Title</label>
-                    <input class="form-control" type="text" id="judul" name="judul">
+                    <input class="form-control" type="text" id="judul" name="judul" value="{{ $movie->judul }}">
                 </div>
+
                 <div class="form-inline mb-3">
                     <label for="poster">Poster</label>
-                    <input class="form-control" type="text" id="poster" name="poster">
+                    <input class="form-control" type="text" id="poster" name="poster" value="{{ $movie->poster }}">
                 </div>
+                
                 <div class="form-inline mb-3">
-                    <label for="genre">Genre</label>
+                    <label for="genre_id">Genre</label>
                     <select class="form-control" id="genre_id" name="genre_id">
-                        <option selected>Choose Genre...</option>
                         @foreach ($genres as $genre)
-                            <option value="{{ $genre->id }}">{{ $genre->nama }}</option>
+                            <option value="{{ $genre->id }}" {{ $genre->id == $movie->genre_id ? "selected" : '' }}>{{ $genre->nama }}</option>
                         @endforeach
                     </select>
                 </div>
+
                 <div class="form-inline mb-3">
                     <label for="negara">Country</label>
-                    <input class="form-control" type="text" id="negara" name="negara">
+                    <input class="form-control" type="text" id="negara" name="negara" value="{{ $movie->negara }}">
                 </div>
+
                 <div class="form-inline mb-3">
                     <label for="tahun">Year</label>
-                    <input class="form-control" type="number" id="tahun" name="tahun" min="1900" max="2099" step="1">
+                    <input class="form-control" type="number" id="tahun" name="tahun" min="1900" max="2099" step="1" value="{{ $movie->tahun }}">
                 </div>
+
                 <div class="form-inline mb-3">
                     <label for="rating">Rating</label>
-                    <input class="form-control" type="number" id="rating" name="rating" min="0.1" max="10" step="0.1">
+                    <input class="form-control" type="number" id="rating" name="rating" min="0.1" max="10" step="0.1" value="{{ $movie->rating }}">
                 </div>
-                <button type="submit" class="btn btn-primary btn-lg">Add Movie</button>
+
+                <button type="submit" class="btn btn-primary btn-lg">Update Movie</button>
             </form>
         </div>
     </div>

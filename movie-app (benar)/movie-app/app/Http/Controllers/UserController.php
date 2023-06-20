@@ -41,17 +41,25 @@ class UserController extends Controller {
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
-    {
-        //
+    public function edit(User $user) {
+        return view("users.edit", compact("user"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
-    {
-        //
+    public function update(Request $request, User $user) {
+        $validatedData = $request->validate([
+            "nama" => "required",
+            "username" => "required",
+            "password" => "required",
+            "email" => "required",
+            "role" => "required",
+        ]);
+
+        $user->update($validatedData);
+
+        return redirect("/users")->with("success", "User updated successfully!");
     }
 
     public function destroy(User $user) {
