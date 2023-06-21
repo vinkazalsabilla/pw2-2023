@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Movie;
 use App\Models\Genre;
 
@@ -30,12 +31,19 @@ class MovieController extends Controller {
     public function store(Request $request) {
         $validatedData = $request->validate([
             "judul" => "required",
-            "poster" => "required",
+            "poster" => "required|image",
             "genre_id" => "required",
             "negara" => "required",
             "tahun" => "required|integer",
             "rating" => "required|numeric"
         ]);
+
+        // Upload the image
+        if($request->hasFile("poster")) {
+            $imageName = time() . '.' . $request->file("poster")->getClientOriginalExtension();
+            $request->file("poster")->storeAs("assets/img", $imageName, "public");
+            $validatedData["poster"] = $imageName;
+        }
 
         Movie::create($validatedData);
 
@@ -64,12 +72,22 @@ class MovieController extends Controller {
     public function update(Request $request, Movie $movie) {
         $validatedData = $request->validate([
             "judul" => "required",
-            "poster" => "required",
+            "poster" => "nullable|image",
             "genre_id" => "required",
             "negara" => "required",
             "tahun" => "required|integer",
             "rating" => "required|numeric"
         ]);
+
+        // Check if a new image is uploaded
+        if($request->hasFile("poster")) {
+            // Delete the old image
+            Storage::disk("public")->delete("assets/img/" . $movie->poster);
+            // Upload the new image
+            $imageName = time() . '.' . $request->file("poster")->getClientOriginalExtension();
+            $request->file("poster")->storeAs("assets/img", $imageName, "public");
+            $validatedData["poster"] = $imageName;
+        }
 
         $movie->update($validatedData);
 
@@ -80,6 +98,9 @@ class MovieController extends Controller {
      * Remove the specified resource from storage.
      */
     public function destroy(Movie $movie) {
+        // Delete the image
+        Storage::disk("public")->delete("assets/img/" . $movie->poster);
+
         $movie->delete();
         return redirect("/movies")->with("success", "Movie delete successfully!");
     }

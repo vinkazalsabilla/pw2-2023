@@ -27,9 +27,8 @@
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
-                        <th>Username</th>
-                        <th>Password</th>
                         <th>Email</th>
+                        <th>Password</th>
                         <th>Role</th>
                         <th>Action</th>
                     </tr>
@@ -38,9 +37,8 @@
                     <tr>
                         <th>No</th>
                         <th>Nama</th>
-                        <th>Username</th>
-                        <th>Password</th>
                         <th>Email</th>
+                        <th>Password</th>
                         <th>Role</th>
                         <th>Action</th>
                     </tr>
@@ -50,18 +48,17 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $user->nama }}</td>
-                            <td>{{ $user->username }}</td>
-                            <td>{{ $user->password }}</td>
                             <td>{{ $user->email }}</td>
+                            <td>{{ $user->password }}</td>
                             <td>{{ $user->role }}</td>
-                            <td>
+                            {{-- <td>
                                 <a href="/users/{{ $user->id }}/edit" class="btn btn-sm btn-warning"> Edit</a>
                                 <form action="/users/{{ $user->id }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure want to delete?')">Delete</button>
                                 </form>
-                            </td>
+                            </td> --}}
                         </tr>
                     @endforeach
                 </tbody>
